@@ -14,7 +14,11 @@ const authReducer = (state = authData, action) => {
           ...action.userLogin,
         },
       };
-
+    case 'LOGOUT-USER':
+      return {
+        ...state,
+        isLogin: action.data,
+      };
     default:
       return state;
   }

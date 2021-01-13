@@ -1,19 +1,24 @@
-import React, { Component } from "react";
-import { Text, StyleSheet, View, TextInput } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import Icon from "react-native-vector-icons/FontAwesome";
-import ShowPassword from "./ShowPassword";
+import React, {Component} from 'react';
+import {
+  Text,
+  StyleSheet,
+  View,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import ShowPassword from './ShowPassword';
 export default class Input extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLook: true,
-      border: "black",
+      border: 'black',
     };
   }
 
   render() {
-    const { isLook, border } = this.state;
+    const {isLook, border} = this.state;
     const {
       icon,
       sizeIcon,
@@ -22,15 +27,18 @@ export default class Input extends Component {
       isPassword,
       secure,
       onChangeText,
+      note,
+      onPress,
+      value,
     } = this.props;
     const onFocusForm = () => {
       this.setState({
-        border: "blue",
+        border: 'blue',
       });
     };
     const onBlurForm = () => {
       this.setState({
-        border: "black",
+        border: 'black',
       });
     };
     return (
@@ -41,6 +49,7 @@ export default class Input extends Component {
           </View>
           <View style={styles.inputSection}>
             <TextInput
+              value={value}
               placeholder={label}
               onBlur={onBlurForm}
               onChangeText={onChangeText}
@@ -49,10 +58,15 @@ export default class Input extends Component {
               style={styles.textInput}
             />
           </View>
+          {note && (
+            <TouchableOpacity onPress={onPress} style={styles.iconSection}>
+              <Icon color="#495057" size={sizeIcon} name="paper-plane" />
+            </TouchableOpacity>
+          )}
           {isPassword && (
             <ShowPassword
               isLook={isLook}
-              onClick={() => this.setState({ isLook: !this.state.isLook })}
+              onClick={() => this.setState({isLook: !this.state.isLook})}
             />
           )}
         </View>
@@ -65,12 +79,12 @@ const styles = StyleSheet.create({
   input: (isBorder, border) => ({
     borderColor: border,
     borderBottomWidth: 0.5,
-    flexDirection: "row",
+    flexDirection: 'row',
     borderWidth: isBorder ? 0.5 : 0,
     marginBottom: 10,
     borderRadius: isBorder ? 5 : 0,
   }),
-  iconSection: { padding: 10 },
-  inputSection: { flex: 1 },
-  textInput: { marginLeft: 5 },
+  iconSection: {padding: 10},
+  inputSection: {flex: 1},
+  textInput: {marginLeft: 5},
 });

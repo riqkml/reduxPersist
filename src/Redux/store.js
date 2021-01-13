@@ -7,6 +7,8 @@ import reducerz from './index';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
+  blacklist: ['lessonReducer'],
+  whitelist: ['usersReducer', 'authReducer'],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducerz);

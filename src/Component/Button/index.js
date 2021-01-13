@@ -7,9 +7,11 @@ export default class Button extends Component {
     super(props);
   }
   render() {
-    const {onClick, margin, label} = this.props;
+    const {onClick, margin, label, borders} = this.props;
     return (
-      <TouchableOpacity onPress={onClick} style={styles.Button(margin)}>
+      <TouchableOpacity
+        onPress={onClick}
+        style={styles.Button(margin, borders)}>
         <Text style={styles.Title}>{label}</Text>
       </TouchableOpacity>
     );
@@ -17,10 +19,10 @@ export default class Button extends Component {
 }
 
 const styles = StyleSheet.create({
-  Button: (margin) => ({
+  Button: (margin, borders) => ({
     backgroundColor: colors.primary,
     padding: 7,
-    borderRadius: 15,
+    borderRadius: borders ? borders : 15,
     alignItems: 'center',
     marginHorizontal: margin ? margin : 0,
   }),

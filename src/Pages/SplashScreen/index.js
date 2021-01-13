@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, Image} from 'react-native';
+import {connect} from 'react-redux';
 import {iconLogo} from '../../Assets';
 
-export default class SplashScreen extends Component {
+class SplashScreen extends Component {
   constructor(props) {
     super(props);
   }
@@ -11,7 +12,8 @@ export default class SplashScreen extends Component {
   }
   _route() {
     setTimeout(() => {
-      this.props.navigation.replace('Login');
+      const {isLogin} = this.props;
+      this.props.navigation.replace(isLogin ? 'Dashboard' : 'Login');
     }, 2000);
   }
   render() {
@@ -29,7 +31,16 @@ export default class SplashScreen extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    isLogin: state.authReducer.isLogin,
+  };
+};
 
+const mapDispatchToProps = (dispatch) => {
+  return {};
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SplashScreen);
 const styles = StyleSheet.create({
   label: {fontSize: 18, letterSpacing: 1, fontWeight: 'bold'},
   page: {flex: 1, backgroundColor: 'white'},
